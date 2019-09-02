@@ -1,0 +1,13 @@
+### IntelliJ IDEA ###
+.idea
+
+venv
+
+### scrapyd-deploy ###
+setup.py
+project.egg-info
+logs
+eggs
+dbs
+build
+__pycache__
