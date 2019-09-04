@@ -3,7 +3,6 @@ import sys
 import config
 from config import DB_CONFIG
 from util.exception import Con_DB_Fail
-from validator.Validator import checkSped
 
 try:
     if DB_CONFIG['DB_CONNECT_TYPE'] == 'pymongo':
@@ -23,12 +22,12 @@ def store_data(queue2, db_proxy_num):
         try:
             proxy = queue2.get(timeout=300)
             if proxy:
-                from validator.Validator import getMyIP, detect_proxy,checkProxy
+                from validator.Validator import getMyIP,checkSped
                 selfip = getMyIP()
                 speeds = checkSped(selfip, proxy)
                 value2=[speeds,config.GOAL_HTTPS_LIST]
                 print(value2)
-                if value2:
+                if speeds:
                     sqlhelper.insert(proxy,value2)
                     successNum += 1
             else:

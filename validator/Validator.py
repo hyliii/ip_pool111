@@ -145,7 +145,7 @@ def getMyIP():
     except Exception as e:
         raise Test_URL_Fail
 if __name__ == '__main__':
-    ip = '222.186.161.132' 
+    ip = '222.186.161.132'
     port = 3128
     proxies = {"http": "http://%s:%s" % (ip, port), "https": "http://%s:%s" % (ip, port)}
     _checkHttpProxy(None,proxies)
