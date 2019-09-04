@@ -45,9 +45,10 @@ class Html_Parser(object):
         return country,addr
     def checkservice(self,addr):
         if ' ' in addr:
-            return addr.split(' ')[1]
-        else :
-            return '其他'
+            a=''.join(addr.split(' ')[1:])
+            if a:
+                return a
+        return '其他'
     def XpathPraser(self, response, parser):
         '''xpath方式解析'''
         proxylist = []
