@@ -2,6 +2,8 @@ import datetime
 from sqlalchemy import Column, Integer, String, DateTime, Numeric, create_engine, VARCHAR, ForeignKey, engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker,relationship
+from sqlalchemy.testing import db
+
 import config
 from config import DB_CONFIG, DEFAULT_SCORE
 from db.ISqlHelper import ISqlHelper
@@ -39,8 +41,8 @@ class Proxy(BaseModel):
     country = Column(VARCHAR(20), nullable=False)
     addr_id = Column(Integer,ForeignKey('address.id', ondelete='CASCADE'), nullable=False)
     t_service = Column(VARCHAR(100), nullable=False)
-    usable_time = Column(DateTime(),default=datetime.datetime.now())
-    update_time = Column(DateTime(), default=datetime.datetime.now(), onupdate=datetime.datetime.now())
+    usable_time = Column(DateTime,default=datetime.datetime.now)
+    update_time = Column(DateTime, default=datetime.datetime.now, onupdate=datetime.datetime.now)
     score = Column(Integer, nullable=False, default=DEFAULT_SCORE)
     attr=Column(Integer, nullable=False,default=0)
     speed = relationship('Speed', backref='proxys')
@@ -65,12 +67,12 @@ class SqlHelper(ISqlHelper):
     def drop_db(self):
         BaseModel.metadata.drop_all(self.engine)
     def insert(self,value1,value2):
-        if value2[0][1]<50:
+        if value2[0][0]<50 or value2[0][1]<50 :
             addr_ids = self.session.query(Address).filter(Address.t_address == value1['addr_id']).first().id
             proxy_obj = Proxy(ip=value1['ip'], port=value1['port'], t_way=value1['t_way'], protocol=value1['protocol'],country=value1['country'],addr_id=addr_ids, t_service=value1['t_service'],attr=value1['attr'])
             self.session.add(proxy_obj)
             ip_ids = self.session.query(Proxy).filter(and_(Proxy.ip == value1['ip'], Proxy.port == value1['port'])).first().id
-            for i in range(1,len(value2[0])):
+            for i in range(2,len(value2[0])):
                 if value2[0][i]<1000:
                     speed_add=Speed(pro_speed=value2[0][i],company=value2[1][i],ip_id=ip_ids)
                     self.session.add(speed_add)

@@ -1,7 +1,10 @@
 # coding:utf-8
 import sys
+import config
 from config import DB_CONFIG
 from util.exception import Con_DB_Fail
+from validator.Validator import checkSped
+
 try:
     if DB_CONFIG['DB_CONNECT_TYPE'] == 'pymongo':
         from db.MongoHelper import MongoHelper as SqlHelper
@@ -22,10 +25,8 @@ def store_data(queue2, db_proxy_num):
             if proxy:
                 from validator.Validator import getMyIP, detect_proxy,checkProxy
                 selfip = getMyIP()
-                ip = proxy['ip']
-                port = proxy['port']
-                proxies = {"http": "http://%s:%s" % (ip, port), "https": "https://%s:%s" % (ip, port)}
-                protocol, types, value2 = checkProxy(selfip, proxies,True)
+                speeds = checkSped(selfip, proxy)
+                value2=[speeds,config.GOAL_HTTPS_LIST]
                 print(value2)
                 if value2:
                     sqlhelper.insert(proxy,value2)

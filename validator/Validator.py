@@ -78,9 +78,9 @@ def detect_from_db(myip, proxy, proxies_set):
             sqlhelper.update({'ip': proxy[0], 'port': proxy[1]}, {'score': score})
             proxy_str = '%s:%s' % (proxy[0], proxy[1])
             proxies_set.add(proxy_str)
-def checkProxy(selfip, proxies,speed=False):
-    http, http_types,test_url= _checkHttpProxy(selfip, proxies,True)
-    https, https_types ,test_url= _checkHttpProxy(selfip, proxies)
+def checkProxy(selfip, proxies):
+    http, http_types= _checkHttpProxy(selfip, proxies,True)
+    https, https_types= _checkHttpProxy(selfip, proxies)
     if http and https:
         protocol = 2
         types = http_types
@@ -93,12 +93,6 @@ def checkProxy(selfip, proxies,speed=False):
     else:
         types = -1
         protocol = -1
-    if speed:
-        speeds = checkSped(selfip, proxies, test_url)
-        if speeds:
-            speedlist = [speeds, test_url]
-        # print(speeds)
-            return protocol,types,speedlist
     return protocol,types
 def _checkHttpProxy(selfip, proxies, isHttp=False):
     types = -1
@@ -119,14 +113,16 @@ def _checkHttpProxy(selfip, proxies, isHttp=False):
                 types = 1
             else:
                 types = 0
-            return True, types,test_url
+            return True, types
         else:
-            return False, types,test_url
+            return False, types
     except Exception as e:
-        return False, types,test_url
-def checkSped(selfip, proxies, test_url):
+        return False, types
+def checkSped(selfip, proxy):
     try:
         speeds = []
+        test_url = config.GOAL_HTTPS_LIST
+        proxies = {"http": "http://%s:%s" % (proxy['ip'], proxy['port']), "https": "https://%s:%s" % (proxy['ip'], proxy['port'])}
         for i in test_url:
             try:
                 start = time.time()
@@ -153,8 +149,3 @@ if __name__ == '__main__':
     port = 3128
     proxies = {"http": "http://%s:%s" % (ip, port), "https": "http://%s:%s" % (ip, port)}
     _checkHttpProxy(None,proxies)
-    # getMyIP()
-    # str="{ip:'61.150.43.121',address:'陕西省西安市 西安电子科技大学'}"
-    # j = json.dumps(str)
-    # str = j['ip']
-    # print str

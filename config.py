@@ -8,6 +8,12 @@ import os
 import random
 parserList = [
     {
+        'urls': ['http://www.xicidaili.com/%s/%s' % (m, n) for m in ['nn', 'nt', 'wn', 'wt'] for n in range(1, 8)],
+        'type': 'xpath',
+        'pattern': ".//*[@id='ip_list']/tr[position()>1]",
+        'position': {'ip': './td[2]', 'port': './td[3]', 'type': './td[5]', 'protocol': './td[6]'}
+    },
+    {
         'urls': ['http://www.66ip.cn/%s.html' % n for n in ['index'] + list(range(2, 12))],
         'type': 'xpath',
         'pattern': ".//*[@id='main']/div/div[1]/table/tr[position()>1]",
@@ -76,12 +82,6 @@ parserList = [
 
     },
     {
-        'urls': ['http://www.xicidaili.com/%s/%s' % (m, n) for m in ['nn', 'nt', 'wn', 'wt'] for n in range(1, 8)],
-        'type': 'xpath',
-        'pattern': ".//*[@id='ip_list']/tr[position()>1]",
-        'position': {'ip': './td[2]', 'port': './td[3]', 'type': './td[5]', 'protocol': './td[6]'}
-    },
-    {
         'urls': ['http://www.cnproxy.com/proxy%s.html' % i for i in range(1, 11)],
         'type': 'module',
         'moduleName': 'CnproxyPraser',
@@ -116,9 +116,8 @@ API_PORT = 8000     #端口号
 爬虫爬取和检测ip的设置条件
 不需要检测ip是否已经存在，因为会定时清理
 '''
-UPDATE_TIME = 1800 # 每半个小时检测一次是否有代理ip失效，秒为单位
+UPDATE_TIME = 600 # 每UPDATE_TIME检测一次是否有代理ip失效，秒为单位
 MINNUM = 200  # 当有效的ip值小于200个时 需要启动爬虫进行爬取
-
 TIMEOUT = 5
 '''
 反爬虫的设置
@@ -127,7 +126,6 @@ TIMEOUT = 5
 重试次数
 '''
 RETRY_TIME = 3
-
 '''
 USER_AGENTS 随机头信息
 '''
@@ -183,7 +181,7 @@ TEST_URL = 'http://ip.chinaz.com/getip.aspx'
 TEST_IP = 'http://httpbin.org/ip'
 TEST_HTTP_HEADER = 'http://httpbin.org/get'
 TEST_HTTPS_HEADER = 'https://httpbin.org/get'
-GOAL_HTTPS_LIST=['https://httpbin.org/get','https://www.autohome.com.cn','http://ics.autohome.com.cn/','https://www.yiche.com/','https://www.yichehuoban.com/','https://sso.toutiao.com','https://mct.dcdapp.com']
+GOAL_HTTPS_LIST=['https://httpbin.org/get','http://httpbin.org/get','https://www.autohome.com.cn','http://ics.autohome.com.cn/','https://www.yiche.com/','https://www.yichehuoban.com/','https://sso.toutiao.com','https://mct.dcdapp.com']
 GOAL_HTTP_LIST=['http://httpbin.org/get','http://ics.autohome.com.cn/']
 CHECK_PROXY={'function':'checkProxy'}
 MAX_CHECK_PROCESS = 2 # CHECK_PROXY最大进程数
