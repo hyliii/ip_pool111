@@ -109,7 +109,7 @@ CHINA_AREA = ['河北', '山东', '辽宁', '黑龙江', '吉林',
               '贵州', '安徽', '重庆', '北京', '上海',
               '湖南','天津', '广西', '内蒙', '西藏',
               '新疆', '宁夏', '香港', '澳门']
-IP_TYPE_CLASS=['联通',]
+IP_TYPE_CLASS=['联通','移动','电信','铁通']
 QQWRY_PATH = os.path.dirname(__file__) + "/data/qqwry.dat"
 THREADNUM = 5
 API_PORT = 8000     #端口号
