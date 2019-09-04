@@ -5,6 +5,8 @@ from db.DataStore import store_data
 from validator.Validator import validator, getMyIP
 from spider.ProxyCrawl import startProxyCrawl
 from config import TASK_QUEUE_SIZE
+import warnings
+warnings.filterwarnings('ignore')
 if __name__ == "__main__":
     myip = getMyIP()
     DB_PROXY_NUM = Value('i', 0)

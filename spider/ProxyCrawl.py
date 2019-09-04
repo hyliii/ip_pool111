@@ -1,9 +1,9 @@
 # coding:utf-8
+import gevent
 from gevent import monkey
 monkey.patch_all()
 import sys
 import time
-import gevent
 from gevent.pool import Pool
 from multiprocessing import Queue, Process, Value
 from api.apiServer import start_api_server

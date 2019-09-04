@@ -1,6 +1,6 @@
 # coding:utf-8
 class ISqlHelper(object):
-    params = {'ip': None, 'port': None, 'types': None, 'protocol': None, 'country': None, 'area': None}
+    params  = {'ip': None, 'port': None, 't_way ':None ,'protocol': None,'country': None, 'addr_id':None,'t_service':None, 'score': None,'attr':None}
     def init_db(self):
         raise NotImplemented
     def drop_db(self):
