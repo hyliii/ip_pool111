@@ -1,7 +1,7 @@
 # coding:utf-8
 '''
 定义规则 urls:url列表
-     type：解析方式,取值 regular(正则表达式),xpath(xpath解析),module(自定义第三方模块解析)
+        type：解析方式,取值 regular(正则表达式),xpath(xpath解析),module(自定义第三方模块解析)
          patten：可以是正则表达式,可以是xpath语句不过要和上面的相对应
 '''
 import os
