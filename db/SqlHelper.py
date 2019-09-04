@@ -32,7 +32,7 @@ class Address(BaseModel):
 class Proxy(BaseModel):
     __tablename__ = 'proxys'
     id = Column(Integer, primary_key=True, autoincrement=True)
-    ip = Column(VARCHAR(16), nullable=False)
+    ip = Column(VARCHAR(20), nullable=False)
     port = Column(Integer, nullable=False)
     t_way = Column(Integer, nullable=False)
     protocol = Column(Integer, nullable=False, default=0)

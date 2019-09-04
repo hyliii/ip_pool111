@@ -32,14 +32,16 @@ class Html_Parser(object):
             国外：地区+服务'''
         if text_('省') in addr or self.AuthCountry(addr):
             country = text_('国内')
-            addr = addr.split('市')[0]
-            if '省' in addr:
-                addr = addr.split('省')[1]
+            if '市' in addr:
+                addr=addr.split('市')[0]
+                if '省'in addr:
+                    addr=addr.split('省')[1]
             else:
-                addr = addr[:2]
+                addr = addr.split('省')[0]
         else:
             country = text_('国外')
-            addr = addr[:-2]
+            addr=text_('国外')
+            # addr = addr.split(' ')[0]
         return country,addr
     def checkservice(self,addr):
         if ' ' in addr:

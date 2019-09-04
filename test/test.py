@@ -15,3 +15,7 @@ import re
 # r.encoding = 'utf-8'
 # print(r.text)
 
+s='白山市江源区'
+# s.replace('省','')
+# s.split('省')
+print(s[-2:])
