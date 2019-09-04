@@ -2,7 +2,6 @@
 import sys
 from config import DB_CONFIG
 from util.exception import Con_DB_Fail
-
 try:
     if DB_CONFIG['DB_CONNECT_TYPE'] == 'pymongo':
         from db.MongoHelper import MongoHelper as SqlHelper
@@ -15,11 +14,6 @@ try:
 except Exception as e:
     raise Con_DB_Fail
 def store_data(queue2, db_proxy_num):
-    '''
-    读取队列中的数据，写入数据库中
-    :param queue2:
-    :return:
-    '''
     successNum = 0
     failNum = 0
     while True:
@@ -31,7 +25,6 @@ def store_data(queue2, db_proxy_num):
                 ip = proxy['ip']
                 port = proxy['port']
                 proxies = {"http": "http://%s:%s" % (ip, port), "https": "https://%s:%s" % (ip, port)}
-                # print(proxies)
                 protocol, types, value2 = checkProxy(selfip, proxies,True)
                 print(value2)
                 if value2:

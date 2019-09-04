@@ -2,7 +2,6 @@ import datetime
 from sqlalchemy import Column, Integer, String, DateTime, Numeric, create_engine, VARCHAR, ForeignKey, engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker,relationship
-
 import config
 from config import DB_CONFIG, DEFAULT_SCORE
 from db.ISqlHelper import ISqlHelper

@@ -41,6 +41,18 @@ class Html_Parser(object):
             country = text_('国外')
             addr = addr[:-2]
         return country,addr
+    def checkservice(self,addr):
+
+        if '电信' in addr:
+            return '电信'
+        elif '联通' in addr:
+            return '联通'
+        elif '移动' in addr:
+            return '移动'
+        elif '铁通' in addr:
+            return '铁通'
+        else:
+            return '其他'
     def XpathPraser(self, response, parser):
         '''xpath方式解析'''
         proxylist = []
@@ -52,10 +64,8 @@ class Html_Parser(object):
                 port = proxy.xpath(parser['position']['port'])[0].text
                 t_way = 0
                 protocol = 0
-                # country = text_('')
-                # addr = text_('')
                 addr = self.ips.getIpAddr(self.ips.str2ip(ip))
-                t_service =addr[-2:]
+                t_service=self.checkservice(addr)
                 country, addr=self.addrcut(addr)
             except Exception as e:
                 continue
@@ -74,8 +84,6 @@ class Html_Parser(object):
                     port = match[parser['position']['port']]
                     t_way= 0
                     protocol = 0
-                    # country = text_('')
-                    # addr = text_('')
                     addr = self.ips.getIpAddr(self.ips.str2ip(ip))
                     t_service=addr[-2:]
                     country, addr = self.addrcut(addr)
@@ -109,8 +117,6 @@ class Html_Parser(object):
                     port = ip_port.split(':')[1]
                     t_way = 0
                     protocol = 0
-                    # country = text_('')
-                    # addr = text_('')
                     addr = self.ips.getIpAddr(self.ips.str2ip(ip))
                     t_service = addr[-2:]
                     country,addr=self.addrcut(addr)
