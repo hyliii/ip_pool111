@@ -100,7 +100,6 @@ DB_CONFIG = {
     'DB_CONNECT_STRING' : 'mysql+pymysql://huyanli:tlV0gdW9jm6JA3j4@rm-2zed7t3zm225t89do.mysql.rds.aliyuncs.com:3306/proxy_ip_db?charset=utf8'
     # 'DB_CONNECT_TYPE': 'redis',  # 'pymongo'sqlalchemy;redis
     # 'DB_CONNECT_STRING': 'redis://localhost:6379/8',
-
 }
 CHINA_AREA = ['河北', '山东', '辽宁', '黑龙江', '吉林',
               '甘肃', '青海', '河南', '江苏', '湖北',
@@ -109,7 +108,7 @@ CHINA_AREA = ['河北', '山东', '辽宁', '黑龙江', '吉林',
               '贵州', '安徽', '重庆', '北京', '上海',
               '湖南','天津', '广西', '内蒙', '西藏',
               '新疆', '宁夏', '香港', '澳门']
-IP_TYPE_CLASS=['联通','移动','电信','铁通','阿里云','大学城']
+
 QQWRY_PATH = os.path.dirname(__file__) + "/data/qqwry.dat"
 THREADNUM = 5
 API_PORT = 8000     #端口号
@@ -184,7 +183,7 @@ TEST_URL = 'http://ip.chinaz.com/getip.aspx'
 TEST_IP = 'http://httpbin.org/ip'
 TEST_HTTP_HEADER = 'http://httpbin.org/get'
 TEST_HTTPS_HEADER = 'https://httpbin.org/get'
-GOAL_HTTPS_LIST=['https://httpbin.org/get','https://www.autohome.com.cn','https://www.yiche.com/','https://www.yichehuoban.com/','https://sso.toutiao.com','https://mct.dcdapp.com']
+GOAL_HTTPS_LIST=['https://httpbin.org/get','https://www.autohome.com.cn','http://ics.autohome.com.cn/','https://www.yiche.com/','https://www.yichehuoban.com/','https://sso.toutiao.com','https://mct.dcdapp.com']
 GOAL_HTTP_LIST=['http://httpbin.org/get','http://ics.autohome.com.cn/']
 CHECK_PROXY={'function':'checkProxy'}
 MAX_CHECK_PROCESS = 2 # CHECK_PROXY最大进程数

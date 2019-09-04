@@ -13,6 +13,7 @@ from multiprocessing import Process, Queue
 import config
 from db.DataStore import sqlhelper
 from util.exception import Test_URL_Fail
+'''检测器'''
 def validator(queue1, queue2, myip):
     tasklist = []
     proc_pool = {}     # 所有进程列表

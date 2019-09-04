@@ -7,4 +7,5 @@ try:
 except Exception:
     raise Con_DB_Fail
 proxy = {'ip': '192.168.1.1', 'port': int('80'), 'type': 0, 'protocol': 0, 'country': u'中国', 'area': u'四川', 'speed': 0}
-sqlhelper.insert(proxy)
+speed = [{'pro_speed': '0.001', 'company': '车智汇通'}]
+sqlhelper.insert(proxy,speed)
