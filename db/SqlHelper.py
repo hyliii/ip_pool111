@@ -78,7 +78,7 @@ class SqlHelper(ISqlHelper):
             self.session.commit()
     def delete(self, conditions=None):
         if conditions:
-            conditon_list =[]
+            conditon_list = []
             for key in list(conditions.keys()):
                 if self.params.get(key):
                     conditon_list.append(self.params.get(key) == conditions.get(key))
