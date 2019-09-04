@@ -130,7 +130,6 @@ def checkSped(selfip, proxies, test_url):
             try:
                 start = time.time()
                 r = requests.get(url=i, headers=config.get_header(), timeout=config.TIMEOUT, proxies=proxies)
-                print(test_url)
                 if r.ok:
                     speed = round(int(time.time() - start),2)
                     speeds.append(speed)
@@ -138,7 +137,6 @@ def checkSped(selfip, proxies, test_url):
                     speeds.append(1000000)
             except Exception as e:
                 speeds.append(1000000)
-            print(speeds)
         return speeds
     except Exception as e:
         return  None

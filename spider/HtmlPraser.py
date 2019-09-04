@@ -42,11 +42,9 @@ class Html_Parser(object):
             addr = addr[:-2]
         return country,addr
     def checkservice(self,addr):
-        service=config.IP_TYPE_CLASS
-        for i in service:
-            if i in addr:
-                return i
-        else:
+        if ' ' in addr:
+            return addr.split(' ')[1]
+        else :
             return '其他'
     def XpathPraser(self, response, parser):
         '''xpath方式解析'''
@@ -60,6 +58,7 @@ class Html_Parser(object):
                 t_way = 0
                 protocol = 0
                 addr = self.ips.getIpAddr(self.ips.str2ip(ip))
+                print(addr)
                 t_service=self.checkservice(addr)
                 country, addr=self.addrcut(addr)
             except Exception as e:
@@ -80,6 +79,7 @@ class Html_Parser(object):
                     t_way= 0
                     protocol = 0
                     addr = self.ips.getIpAddr(self.ips.str2ip(ip))
+                    print(addr)
                     t_service = self.checkservice(addr)
                     country, addr = self.addrcut(addr)
                 except Exception as e:

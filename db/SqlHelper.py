@@ -39,7 +39,7 @@ class Proxy(BaseModel):
     country = Column(VARCHAR(20), nullable=False)
     addr_id = Column(Integer,ForeignKey('address.id', ondelete='CASCADE'), nullable=False)
     t_service = Column(VARCHAR(100), nullable=False)
-    usable_time = Column(DateTime())
+    usable_time = Column(DateTime(),default=datetime.datetime.now())
     update_time = Column(DateTime(), default=datetime.datetime.now(), onupdate=datetime.datetime.now())
     score = Column(Integer, nullable=False, default=DEFAULT_SCORE)
     attr=Column(Integer, nullable=False,default=0)
