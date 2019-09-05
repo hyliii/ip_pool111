@@ -41,6 +41,7 @@ class ProxyCrawl(object):
             self.db_proxy_num.value = len(self.proxies)
             str = 'db exists ip:%d' % len(self.proxies)
             spawns = []
+            start = time.time()
             while True:
                 if len(self.proxies) < MINNUM:
                     str += '\r\nnow ip num < MINNUM,start crawling...'
@@ -56,7 +57,11 @@ class ProxyCrawl(object):
                     gevent.joinall(spawns)
                     spawns = []
                 gevent.joinall(spawns)
-                break
+                ending=time.time()
+                if ending-start>int(UPDATE_TIME):
+                    break
+                else:
+                    continue
     def crawl(self, parser):
         html_parser = Html_Parser()
         for url in parser['urls']:
