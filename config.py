@@ -117,7 +117,7 @@ API_PORT = 8000     #端口号
 不需要检测ip是否已经存在，因为会定时清理
 '''
 UPDATE_TIME = 600 # 每UPDATE_TIME检测一次是否有代理ip失效，秒为单位
-MINNUM = 200  # 当有效的ip值小于200个时 需要启动爬虫进行爬取
+MINNUM = 1000  # 当有效的ip值小于200个时 需要启动爬虫进行爬取
 TIMEOUT = 5
 '''
 反爬虫的设置
@@ -189,3 +189,4 @@ MAX_CHECK_CONCURRENT_PER_PROCESS = 30 # CHECK_PROXY时每个进程的最大并�
 TASK_QUEUE_SIZE = 50 # 任务队列SIZE
 MAX_DOWNLOAD_CONCURRENT = 3 # 从免费代理网站下载时的最大并发 
 CHECK_WATI_TIME = 1#进程数达到上限时的等待时间
+RECHECK_COUNT=5 #检测次数

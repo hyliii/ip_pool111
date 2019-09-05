@@ -61,7 +61,6 @@ class Html_Parser(object):
                 t_way = 0
                 protocol = 0
                 addr = self.ips.getIpAddr(self.ips.str2ip(ip))
-                print(addr)
                 t_service=self.checkservice(addr)
                 country, addr=self.addrcut(addr)
             except Exception as e:

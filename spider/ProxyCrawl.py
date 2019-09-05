@@ -4,6 +4,7 @@ from gevent import monkey
 monkey.patch_all()
 import sys
 import time
+import random
 from gevent.pool import Pool
 from multiprocessing import Queue, Process, Value
 from api.apiServer import start_api_server
@@ -26,7 +27,7 @@ class ProxyCrawl(object):
     def run(self):
         while True:
             self.proxies.clear()
-            str = 'IPProxyPool----->>>>>>>>beginning'
+            str = 'IPProxyPool---beginning'
             sys.stdout.write(str + "\r\n")
             sys.stdout.flush()
             proxylist = sqlhelper.select()
@@ -38,23 +39,24 @@ class ProxyCrawl(object):
                     spawns= []
             gevent.joinall(spawns)
             self.db_proxy_num.value = len(self.proxies)
-            str = 'IPProxyPool----->>>>>>>>db exists ip:%d' % len(self.proxies)
-            if len(self.proxies) < MINNUM:
-                str += '\r\nIPProxyPool----->>>>>>>>now ip num < MINNUM,start crawling...'
-                sys.stdout.write(str + "\r\n")
-                sys.stdout.flush()
-                spawns = []
-                for p in parserList:
-                    spawns.append(gevent.spawn(self.crawl, p))
-                    if len(spawns) >= MAX_DOWNLOAD_CONCURRENT:
-                        gevent.joinall(spawns)
-                        spawns= []
+            str = 'db exists ip:%d' % len(self.proxies)
+            spawns = []
+            while True:
+                if len(self.proxies) < MINNUM:
+                    str += '\r\nnow ip num < MINNUM,start crawling...'
+                    sys.stdout.write(str + "\r\n")
+                    sys.stdout.flush()
+                else:
+                    str += '\r\nACCONPLISH!!!ip num meet the requirement,!'
+                    sys.stdout.write(str + "\r\n")
+                    sys.stdout.flush()
+                p = random.randint(0,len(parserList)-1)
+                spawns.append(gevent.spawn(self.crawl, parserList[p]))
+                if len(spawns) >= MAX_DOWNLOAD_CONCURRENT:
+                    gevent.joinall(spawns)
+                    spawns = []
                 gevent.joinall(spawns)
-            else:
-                str += '\r\nIPProxyPool----->>>>>>>>now ip num meet the requirement,wait UPDATE_TIME...'
-                sys.stdout.write(str + "\r\n")
-                sys.stdout.flush()
-            time.sleep(UPDATE_TIME)
+                break
     def crawl(self, parser):
         html_parser = Html_Parser()
         for url in parser['urls']:

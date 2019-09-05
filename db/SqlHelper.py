@@ -53,6 +53,7 @@ class Speed(BaseModel):
     pro_speed = Column(Numeric(5, 2), nullable=False)
     company=Column(VARCHAR(50), nullable=False)
 class SqlHelper(ISqlHelper):
+    #数据库选择器类！！！
     params = {'ip': Proxy.ip, 'port': Proxy.port, 't_way ':Proxy.t_way ,'protocol': Proxy.protocol,'country': Proxy.country, 'addr_id':Proxy.addr_id,'t_service':Proxy.t_service, 'usable_time':Proxy.usable_time,'update_time':Proxy.update_time,'score': Proxy.score,'attr':Proxy.attr}
     def __init__(self):
         if 'sqlite' in DB_CONFIG['DB_CONNECT_STRING']:
