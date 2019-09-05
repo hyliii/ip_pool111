@@ -5,7 +5,7 @@ class ISqlHelper(object):
         raise NotImplemented
     def drop_db(self):
         raise NotImplemented
-    def insert(self, value=None):
+    def insert(self, value1=None,value2=None):
         raise NotImplemented
     def delete(self, conditions=None):
         raise NotImplemented

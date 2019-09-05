@@ -3,7 +3,6 @@ from sqlalchemy import Column, Integer, String, DateTime, Numeric, create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker,relationship
 from sqlalchemy.testing import db
-
 import config
 from config import DB_CONFIG, DEFAULT_SCORE
 from db.ISqlHelper import ISqlHelper
@@ -95,22 +94,33 @@ class SqlHelper(ISqlHelper):
         return ('deleteNum', deleteNum)
     def update(self, conditions=None, value=None):
         if conditions and value:
-            conditon_list = []
-            for key in list(conditions.keys()):
-                if self.params.get(key, None):
-                    conditon_list.append(self.params.get(key) == conditions.get(key))
-            conditions = conditon_list
-            query = self.session.query(Proxy)
-            for condition in conditions:
-                query = query.filter(condition)
-            updatevalue = {}
-            for key in list(value.keys()):
-                if self.params.get(key, None):
-                    updatevalue[self.params.get(key, None)] = value.get(key)
-            updateNum = query.update(updatevalue)
-            self.session.commit()
+            from validator.Validator import getMyIP, checkSped
+            selfip = getMyIP()
+            speeds = checkSped(selfip, conditions)
+            if speeds:
+                if speeds[0]<50 or speeds[1]<50:
+                    conditon_list = []
+                    for key in list(conditions.keys()):
+                        if self.params.get(key, None):
+                            conditon_list.append(self.params.get(key) == conditions.get(key))
+                    conditions = conditon_list
+                    query = self.session.query(Proxy)
+                    for condition in conditions:
+                        query = query.filter(condition)
+                    updatevalue = {}
+                    for key in list(value.keys()):
+                        if self.params.get(key, None):
+                            updatevalue[self.params.get(key, None)] = value.get(key)
+                    updateNum = query.update(updatevalue)
+                    self.session.commit()
+                else:
+                    self.delete(conditions)
+                    updateNum = None
+            else:
+                self.delete(conditions)
+                updateNum = None
         else:
-            updateNum = 0
+            updateNum=0
         return {'updateNum': updateNum}
     def select(self, count=None, conditions=None):
         if conditions:
