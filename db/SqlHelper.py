@@ -124,7 +124,7 @@ class SqlHelper(ISqlHelper):
         return {'updateNum': updateNum}
     def select(self, count=None, conditions=None):
         if conditions:
-            conditon_list = []
+            conditon_list =[]
             for key in list(conditions.keys()):
                 if self.params.get(key, None):
                     conditon_list.append(self.params.get(key) == conditions.get(key))
@@ -135,15 +135,15 @@ class SqlHelper(ISqlHelper):
         if len(conditions) > 0 and count:
             for condition in conditions:
                 query = query.filter(condition)
-            return query.order_by(Proxy.score.desc()).limit(count).all()
+            return query.order_by(Proxy.score).limit(count).all()
         elif count:
-            return query.order_by(Proxy.score.desc()).limit(count).all()
+            return query.order_by(Proxy.score).limit(count).all()
         elif len(conditions) > 0:
             for condition in conditions:
                 query = query.filter(condition)
-            return query.order_by(Proxy.score.desc()).all()
+            return query.order_by(Proxy.score).all()
         else:
-            return query.order_by(Proxy.score.desc()).all()
+            return query.order_by(Proxy.score).all()
     def close(self):
         pass
 if __name__ == '__main__':
