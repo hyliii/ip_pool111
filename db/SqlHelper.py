@@ -135,15 +135,15 @@ class SqlHelper(ISqlHelper):
         if len(conditions) > 0 and count:
             for condition in conditions:
                 query = query.filter(condition)
-            return query.order_by(Proxy.score).limit(count).all()
+            return query.order_by(Proxy.score.desc()).limit(count).all()
         elif count:
-            return query.order_by(Proxy.score).limit(count).all()
+            return query.order_by(Proxy.score.desc()).limit(count).all()
         elif len(conditions) > 0:
             for condition in conditions:
                 query = query.filter(condition)
-            return query.order_by(Proxy.score).all()
+            return query.order_by(Proxy.score.desc()).all()
         else:
-            return query.order_by(Proxy.score).all()
+            return query.order_by(Proxy.score.desc()).all()
     def close(self):
         pass
 if __name__ == '__main__':

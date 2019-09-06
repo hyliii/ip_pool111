@@ -48,7 +48,7 @@ class ProxyCrawl(object):
                     sys.stdout.write(str + "\r\n")
                     sys.stdout.flush()
                 else:
-                    str += '\r\nACCONPLISH!!!ip num meet the requirement,!'
+                    str += '\r\nACCONPLISH!!!ip num meet the requirement!'
                     sys.stdout.write(str + "\r\n")
                     sys.stdout.flush()
                 p = random.randint(0,len(parserList)-1)
@@ -58,7 +58,7 @@ class ProxyCrawl(object):
                     spawns = []
                 gevent.joinall(spawns)
                 ending=time.time()
-                if ending-start>int(UPDATE_TIME):
+                if int(ending-start)>int(UPDATE_TIME):
                     break
                 else:
                     continue
