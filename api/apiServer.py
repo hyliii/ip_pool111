@@ -4,10 +4,7 @@ import sys
 import web
 import config
 from db.DataStore import sqlhelper
-urls = (
-    '/', 'select',
-    '/delete', 'delete',
-)
+urls = ('/', 'select','/delete', 'delete',)
 def start_api_server():
     sys.argv.append('0.0.0.0:%s' % config.API_PORT)
     app = web.application(urls, globals())

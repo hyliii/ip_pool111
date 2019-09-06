@@ -27,6 +27,7 @@
 #     conditon_list.append(proxy.get(key) == conditions.get(key))
 # proxy[proxy.get(key, None)] = conditions.get(key)
 # print(proxy)
-from db.DataStore import sqlhelper
-k=[str(i[0])+':'+str(i[1]) for i in sqlhelper.select(10)]
-print(k)
+# from db.DataStore import sqlhelper
+# k=[str(i[0])+':'+str(i[1]) for i in sqlhelper.select(10)]
+# print(k)
+
