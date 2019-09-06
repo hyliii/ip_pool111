@@ -117,7 +117,7 @@ API_PORT = 8000     #端口号
 不需要检测ip是否已经存在，因为会定时清理
 '''
 UPDATE_TIME = 600 # 每UPDATE_TIME检测一次是否有代理ip失效，秒为单位
-MINNUM = 1000  # 当有效的ip值小于200个时 需要启动爬虫进行爬取
+MINNUM = 1000  # 当有效的ip值小于MINNUM个时 需要启动爬虫进行爬取
 TIMEOUT = 5
 '''
 反爬虫的设置
