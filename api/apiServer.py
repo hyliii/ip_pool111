@@ -12,7 +12,11 @@ def start_api_server():
 class select(object):
     def GET(self):
         inputs = web.input()
-        json_result = json.dumps(sqlhelper.select(inputs.get('count', None), inputs))
+        count=inputs.get('count', None)
+        if count==None:
+            count=1
+        text=[{'ip':i[0],'port':str(i[1]),'protocol':str(i[3])} for i in sqlhelper.select(count, inputs)]
+        json_result = json.dumps(text)
         print('select'+str(json_result))
         return json_result
 class delete(object):

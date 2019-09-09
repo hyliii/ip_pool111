@@ -46,7 +46,7 @@ class ProxyCrawl(object):
                     str += '\r\nnow ip num < MINNUM,start crawling...'
                     sys.stdout.write(str + "\r\n")
                     sys.stdout.flush()
-                if len(self.proxies) > MINNUM:
+                elif len(self.proxies) > MINNUM:
                     str += '\r\nACCONPLISH!!!ip num meet the requirement!'
                     sys.stdout.write(str + "\r\n")
                     sys.stdout.flush()
