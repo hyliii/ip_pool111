@@ -1,5 +1,5 @@
 import datetime
-from sqlalchemy import Column, Integer, String, DateTime, Numeric, create_engine, VARCHAR, ForeignKey, engine
+from sqlalchemy import Column, Integer, String, DateTime, Numeric, create_engine, VARCHAR, ForeignKey, engine, Float
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker,relationship
 from sqlalchemy.testing import db
@@ -25,11 +25,24 @@ ip池建表字段：
     attr(属性，0：采集未检测，1：采集并检测)
 '''
 BaseModel = declarative_base()
-class Address(BaseModel):
-    __tablename__ = 'address'
+class T_area(BaseModel):
+    __tablename__ = 't_area'
     id = Column(Integer, primary_key=True, autoincrement=True)
-    t_address=Column(VARCHAR(20), nullable=False)
-    proxy= relationship('Proxy', backref='address')
+    provinceId=Column(Integer,nullable=False)
+    provinceName=Column(VARCHAR(255), nullable=False)
+    provinceLetter=Column(VARCHAR(2), nullable=False)
+    cityId=Column(Integer,nullable=False)
+    cityName=Column(VARCHAR(255), nullable=False)
+    cityLetter=Column(VARCHAR(2), nullable=False)
+    cityPinyin=Column(VARCHAR(30), nullable=False)
+    state=Column(Integer,nullable=False)
+    lng=Column(Float(20),nullable=False)
+    lat=Column(Float(20),nullable=False)
+    yicheProvinceId=Column(Integer,nullable=False)
+    yicheCityId=Column(Integer,nullable=False)
+    yicheCityPinyin=Column(VARCHAR(30), nullable=False)
+    areaNum=Column(VARCHAR(4), nullable=False)
+    proxy= relationship('Proxy', backref='t_area')
 class Proxy(BaseModel):
     __tablename__ = 'proxys'
     id = Column(Integer, primary_key=True, autoincrement=True)
@@ -38,7 +51,7 @@ class Proxy(BaseModel):
     t_way = Column(Integer, nullable=False)
     protocol = Column(Integer, nullable=False, default=0)
     country = Column(VARCHAR(20), nullable=False)
-    addr_id = Column(Integer,ForeignKey('address.id', ondelete='CASCADE'), nullable=False)
+    addr_id = Column(Integer,ForeignKey('t_area.cityId', ondelete='CASCADE'), nullable=False)
     t_service = Column(VARCHAR(100), nullable=False)
     usable_time = Column(DateTime,default=datetime.datetime.now)
     update_time = Column(DateTime, default=datetime.datetime.now, onupdate=datetime.datetime.now)
@@ -68,7 +81,7 @@ class SqlHelper(ISqlHelper):
         BaseModel.metadata.drop_all(self.engine)
     def insert(self,value1,value2):
         if value2[0][0]<50 or value2[0][1]<50 :
-            addr_ids = self.session.query(Address).filter(Address.t_address == value1['addr_id']).first().id
+            addr_ids = self.session.query(T_area).filter(T_area.cityName == value1['addr_id']).first().cityId
             proxy_obj = Proxy(ip=value1['ip'], port=value1['port'], t_way=value1['t_way'], protocol=value1['protocol'],country=value1['country'],addr_id=addr_ids, t_service=value1['t_service'],attr=value1['attr'])
             self.session.add(proxy_obj)
             ip_ids = self.session.query(Proxy).filter(and_(Proxy.ip == value1['ip'], Proxy.port == value1['port'])).first().id
