@@ -38,8 +38,8 @@ class ProxyCrawl(object):
                     gevent.joinall(spawns)
                     spawns= []
             gevent.joinall(spawns)
-            self.db_proxy_num.value = len(self.proxies)
-            str = 'db exists ip:%d' % len(self.proxies)
+            self.db_proxy_num.value = len(sqlhelper.select())
+            str = 'db exists ip:%d' % len(sqlhelper.select())
             spawns = []
             start=time.time()
             while True:
